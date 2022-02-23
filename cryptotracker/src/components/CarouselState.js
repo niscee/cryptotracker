@@ -14,7 +14,6 @@ const CarouselState = () => {
     });
     const data = await res.json();
     setTrending(data["coins"]);
-    console.log(trending);
   };
 
   return [trending, fetchTrendingCoin];

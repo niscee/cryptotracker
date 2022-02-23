@@ -12,7 +12,7 @@ const Header = () => {
     <div className="w-full mt-8 md:mt-16 p-2 h-[500px]">
       <div className="md:w-[90%] w-full m-auto py-8" style={headerStyle}>
         <div className="m-auto text-center md:w-[80%]">
-          <p className="text-white text-4xl mb-4 font-bold pb-2 md:text-6xl tracking-wide">
+          <p className="text-yellow-300 text-4xl mb-4 font-bold pb-2 md:text-6xl tracking-wide">
             Crypto Tracker
           </p>
           <p className="text-gray-300 text-sm md:text-lg">

@@ -9,10 +9,12 @@ const Showcase = () => {
     <>
       <Header />
       <div className="w-full mt-12 md:mt-24">
-        <div className="w-[95%] md:w-[80%] m-auto">
+        <div className="w-[90%] md:w-[80%] m-auto">
           <ShowcaseHeading />
           <InputField />
-          <ShowcaseTable />
+          <div className="">
+            <ShowcaseTable />
+          </div>
         </div>
       </div>
     </>

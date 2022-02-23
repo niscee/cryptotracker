@@ -18,7 +18,7 @@ const handleDragStart = (e) => e.preventDefault();
 // responsive carousel setting.
 const responsive = {
   0: { items: 2 },
-  568: { items: 2 },
+  568: { items: 4 },
   1024: { items: 6 },
 };
 
@@ -33,7 +33,7 @@ const Carousel = () => {
 
   useEffect(() => {
     fetchTrendingCoin();
-  }, []);
+  }, [trending]);
 
   // const items = trending.map((trend) => {
   //   const pic = trend["item"]["large"];

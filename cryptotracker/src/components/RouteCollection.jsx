@@ -7,7 +7,7 @@ import NoMatch from "./NoMatch";
 const RouteCollection = () => {
   const route_list = [
     { url: "/", element: <Showcase /> },
-    { url: "/detail", element: <SingleCurrency /> },
+    { url: "/:id/detail", element: <SingleCurrency /> },
   ];
   return (
     <Routes>
