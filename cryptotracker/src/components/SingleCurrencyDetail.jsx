@@ -4,7 +4,6 @@ import parse from "html-react-parser";
 const SingleCurrencyDetail = ({ singleCoin }) => {
   const {
     name,
-    symbol,
     image,
     description,
     market_cap_rank,

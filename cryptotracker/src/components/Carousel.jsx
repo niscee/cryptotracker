@@ -4,15 +4,6 @@ import { Link } from "react-router-dom";
 import CarouselState from "./CarouselState";
 import React, { useEffect } from "react";
 
-const pics = [
-  "https://assets.coingecko.com/coins/images/16125/large/Baby_Doge.png?1",
-  "https://assets.coingecko.com/coins/images/13256/large/api3.jpg?1606751424",
-  "https://assets.coingecko.com/coins/images/10354/large/logo-grey-circle.png?1614910406",
-  "https://assets.coingecko.com/coins/images/23267/large/Ix-ms0fq_400x400.jpg?1643414048",
-  "https://assets.coingecko.com/coins/images/16125/large/Baby_Doge.png?1",
-  "https://assets.coingecko.com/coins/images/13256/large/api3.jpg?1606751424",
-];
-
 const handleDragStart = (e) => e.preventDefault();
 
 // responsive carousel setting.
@@ -31,31 +22,17 @@ const imageStyle = {
 const Carousel = () => {
   const [trending, fetchTrendingCoin] = CarouselState();
 
-  useEffect(() => {
-    fetchTrendingCoin();
-  }, [trending]);
+  // useEffect(() => {
+  //   fetchTrendingCoin();
+  // }, [trending]);
 
-  // const items = trending.map((trend) => {
-  //   const pic = trend["item"]["large"];
-  //   const name = trend["item"]["name"];
-  //   return (
-  //     <Link to="detail">
-  //       <img
-  //         src={pic && pic}
-  //         onDragStart={handleDragStart}
-  //         role="presentation"
-  //         style={imageStyle}
-  //         className="rounded"
-  //       />
-  //     </Link>
-  //   );
-  // });
-
-  const items = pics.map((trend) => {
+  const items = trending.map((trend) => {
+    const pic = trend["item"]["large"];
+    const name = trend["item"]["name"];
     return (
       <Link to="detail">
         <img
-          src={trend}
+          src={pic && pic}
           onDragStart={handleDragStart}
           role="presentation"
           style={imageStyle}

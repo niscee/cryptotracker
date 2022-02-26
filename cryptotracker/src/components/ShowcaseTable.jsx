@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import ShowcaseState from "./ShowcaseState";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
+import { AuthContextProvider } from "../context/AuthContext";
 
 // iterating coin list.
-const tableItems = (cryptos) => {
+const tableItems = (cryptos, user, addCurrencyWatchlist) => {
   return cryptos.map((crypto, key) => {
     return (
       <tr className="border-b-2 border-slate-200 h-28" key={key}>
@@ -28,8 +29,28 @@ const tableItems = (cryptos) => {
         )}
         <td>${crypto?.market_cap}</td>
         <td>
+          {user && (
+            <>
+              <button
+                className="bg-yellow-500 px-2 w-full md:w-[40%] text-xs border border-white rounded"
+                onClick={() => {
+                  addCurrencyWatchlist(crypto?.id, crypto?.symbol);
+                }}
+              >
+                Watchlist
+              </button>
+              <br />
+            </>
+          )}
           <Link to={`${crypto?.id}/detail`} title="click to view detail">
-            👀
+            <button
+              className="bg-red-500 w-full md:w-[40%] px-2 text-xs border border-white rounded"
+              onClick={() => {
+                addCurrencyWatchlist(crypto?.id, crypto?.symbol);
+              }}
+            >
+              View
+            </button>
           </Link>
         </td>
       </tr>
@@ -45,10 +66,11 @@ const ShowcaseTable = () => {
     pageCollection,
     currentPage,
   ] = ShowcaseState();
+  const { user, addCurrencyWatchlist } = useContext(AuthContextProvider);
 
-  useEffect(() => {
-    fetchCoins();
-  }, []);
+  // useEffect(() => {
+  //   fetchCoins();
+  // }, []);
 
   return (
     <div className="mt-4">
@@ -65,7 +87,9 @@ const ShowcaseTable = () => {
             </tr>
           </thead>
 
-          <tbody>{tableItems(currentCryptos)}</tbody>
+          <tbody>
+            {tableItems(currentCryptos, user, addCurrencyWatchlist)}
+          </tbody>
         </table>
       </div>
       <div>

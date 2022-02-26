@@ -447,7 +447,6 @@ export const HomeContext = ({ children }) => {
       },
     ],
     searchCoin: [],
-    loading: false,
   };
 
   // initializing reducer
@@ -456,7 +455,6 @@ export const HomeContext = ({ children }) => {
   // set all available coins.
   const setCoins = (results) => {
     try {
-      const final_results = [...results];
       dispatch({
         type: "SET_COINS",
         payload: results,
