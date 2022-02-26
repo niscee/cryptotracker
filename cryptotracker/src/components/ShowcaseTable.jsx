@@ -68,9 +68,9 @@ const ShowcaseTable = () => {
   ] = ShowcaseState();
   const { user, addCurrencyWatchlist } = useContext(AuthContextProvider);
 
-  // useEffect(() => {
-  //   fetchCoins();
-  // }, []);
+  useEffect(() => {
+    fetchCoins();
+  }, []);
 
   return (
     <div className="mt-4">

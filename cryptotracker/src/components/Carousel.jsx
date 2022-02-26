@@ -22,9 +22,9 @@ const imageStyle = {
 const Carousel = () => {
   const [trending, fetchTrendingCoin] = CarouselState();
 
-  // useEffect(() => {
-  //   fetchTrendingCoin();
-  // }, [trending]);
+  useEffect(() => {
+    fetchTrendingCoin();
+  }, [trending]);
 
   const items = trending.map((trend) => {
     const pic = trend["item"]["large"];
