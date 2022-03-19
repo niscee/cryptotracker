@@ -1,0 +1,46 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<p class="alert alert-dark" style="font-weight: bold;">
+    <a href="{% url 'custom-order' %}">Back</a>
+</p>
+
+<div style="margin: 0 auto; width:900px;">
+    
+    
+        
+        <div class="card bg-light">
+          <div class="card-body text-center">
+            <p class="card-text">NAME: {{ orders.user }}</p>
+            <p class="card-text">EMAIL: {{ orders.user.email }}</p>
+            <p class="card-text">DATE: {{ orders.date }}</p>
+            <hr>
+
+            <p style="font-weight: bold;"><u>Size info:</u></p>
+            <p class="card-text">{{ orders.size }}</p>
+            <hr>
+
+            <p style="font-weight: bold;"><u>Additional Items:</u></p>
+            <p class="card-text">{{ orders.size }}</p>
+            <hr>
+
+            <p style="font-weight: bold;"><u>Customization Details:</u></p>
+            <p class="card-text">{{ orders.custom_details }}</p>
+            <hr>
+
+            <p style="font-weight: bold;"><u>Materials and Fabrics:</u></p>
+            <p class="card-text">{{ orders.materials }}</p>
+
+          </div>
+        </div>
+
+        
+
+      </div>
+
+</div>
+
+{% endblock  %}

@@ -1,0 +1,38 @@
+{% extends 'store/frontend/main2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-lg-10" style="margin: auto">
+
+        <div class="" style="margin:auto; text-align: center;margin-top:5px;">
+			{% if error_messages  %}
+			{% for msg in error_messages  %}
+			<div class="alert alert-{{msg.tags}}">
+				{{msg}}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+		
+    <div style="padding: 30px;">
+        <h6 style="text-align: center;"><strong>Custom Order</strong></h6>
+        <hr>
+
+        {% if user.is_authenticated %}
+            <p class="alert-danger" style="padding:0px 10px">Date Format: <em>YYYY-MM-DD</em>(e.g. 2019-12-02)</p>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-outline-success btn-block">submit</button>
+            </form>
+        {% else %}
+            <p class="alert alert-danger">You need to login!!</p>
+        {% endif %}
+        
+
+    </div>
+</div>
+
+{% endblock %}

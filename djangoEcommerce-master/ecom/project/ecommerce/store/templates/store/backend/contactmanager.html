@@ -1,0 +1,52 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% if products %}
+                    {% for product in products %}
+                    <tr>
+                        {% if product.special == True %}
+                        <td>{{ product.name }} <span style="color: red;">(special)</span></td>
+                        {% else %}
+                        <td>{{ product.name }}</td>
+                        {% endif %}
+                        <td>${{ product.price|floatformat:2 }}</td>
+                        <td><img src="{{ product.imageURL }}" alt="product_image" class="img-thumbnail"
+                                style="height:80px; width:120px;"></td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-6">
+            <p>Email</p>
+            <form action="{% url 'email_manager' %}" method="POST">
+                {% csrf_token %}
+                <textarea name="message" style="width: 100%; height:200px;"></textarea>
+                <button type="submit" class="btn btn-primary btn-block">submit</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock  %}

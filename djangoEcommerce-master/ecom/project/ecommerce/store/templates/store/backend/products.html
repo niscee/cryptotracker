@@ -1,0 +1,71 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<p class="alert alert-dark"> Product List\&nbsp;<span class="badge badge-light"><a href="{% url 'add_product' %}" style="font-size: 15px;">Add Product</a></span></p>
+ 
+
+<div style="margin-top: 10px;">
+    <form method="get" style=" margin:auto; max-width: 100%;">
+        {{ myFilter.form }}
+        <input type="submit" class="btn btn-primary btn-sm" />
+    </form>
+</div>
+
+
+
+
+<div class="table-responsive">
+<table class="table" style="margin:10px 0px; width:100%">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% if products %}
+        {% for product in products %}
+        <tr>
+            {% if product.special == True %}
+            <td>{{ product.product_code }} <span class="badge badge-danger">special</span></td>
+            {% else %}
+            <td>{{ product.product_code }}</td>
+            {% endif %}
+            <td>${{ product.price|floatformat:2 }}</td>
+            <td><img src="{{ product.imageURL }}" alt="product_image" class="img-thumbnail"
+                    style="height:80px; width:120px;"></td>
+            <td>{{ product.stock }}</td>
+            <td style="display: inline-block">
+                <a href="{% url 'edit_product' product.id %}"><button class="btn btn-sm btn-info"
+                        style="width:60px;">Edit</button></a>
+                <form action="{% url 'delete_product' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-danger" style="width:60px;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endif %}
+
+    </tbody>
+</table>
+</div>
+
+{% endblock  %}

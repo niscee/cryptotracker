@@ -1,0 +1,11 @@
+Hello {{user}},
+
+
+{% for i in cartItems %}
+
+   product: {{i.product.name}}, qty: {{i.quantity}}
+
+{% endfor %}
+
+Total: ${{finalTotal}}
+

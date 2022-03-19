@@ -1,0 +1,70 @@
+{% extends 'store/frontend/main2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+   
+    <div class="col-lg-4">
+
+        <div class="box-element">
+            <h4 style="text-align: center;"><u>Coupon Code</u></h4>
+            <hr>
+            <form action="{% url 'coupon_code_submission' %} " method="POST">
+                {% csrf_token %}
+                <input type="hidden" value={{pk}} name="product">
+                <input type="text" name="token" class="form-control" placeholder="Enter Coupon Code"><br>
+                <button class="btn btn-sm btn-outline-success btn-block" type="submit">submit</button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-8">
+        
+        <div class="box-element">
+        <table class="table">
+            <tr>
+                <th><h5>Total:<strong> ${{order.get_cartTotalPrice|floatformat:2}} (Shipping Charges Included)</strong></h5></th>
+                <th>
+                    <a  style="float:right; margin:5px;" class="btn btn-outline-success" href="{% url 'checkout' %}">Checkout</a>
+                </th>
+            </tr>
+        </table>
+        </div><br>
+        
+        <div class="box-element">
+            <div class="cart-row">
+                <div style="flex:2"></div>
+                <div style="flex:2"><strong>Item</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Total</strong></div>
+                <div style="flex:1"><strong></strong></div>
+            </div>
+            
+            {% for item in items %}
+
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+                <div style="flex:2"><p>{{item.product.name}}</p></div>
+                <div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+                <div style="flex:1">
+                    <p class="quantity">{{item.quantity}}</p>
+                </div>
+                <div style="flex:1"><p>${{item.get_totalPrice|floatformat:2}}</p></div>
+                <div style="flex:1">
+                   
+                </div>
+            </div>
+
+            {% endfor %}
+           
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}

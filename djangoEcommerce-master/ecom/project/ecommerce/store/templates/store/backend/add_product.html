@@ -1,0 +1,22 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+
+<p class="alert alert-dark" style="font-weight:bold"><u>Product Form</u><span style="float: right"><a href="{% url 'add_category' %}">Add Category</a></span></p> 
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-outline-success btn-block">submit</button>
+    </form>
+</div>
+
+
+
+
+
+{% endblock  %}

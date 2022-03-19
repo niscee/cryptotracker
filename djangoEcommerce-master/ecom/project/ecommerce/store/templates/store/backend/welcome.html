@@ -1,0 +1,16 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div style="padding: 40px;">
+    <div class="alert alert-danger" role="alert" style="text-align: center; padding: 40px;">
+        <h4 class="alert-heading">Welcome, {{request.user|title}}</h4>
+        <hr>
+        <p>This is {{request.user.groups.all.0.name}} Dashboard.</p>
+    </div> 
+</div>
+   
+
+{% endblock  %}

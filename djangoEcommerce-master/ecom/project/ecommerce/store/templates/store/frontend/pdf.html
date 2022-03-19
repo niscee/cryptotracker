@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice Report</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .list-group {
+            display: block;
+            width: 100%;
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .list-group p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>INVOICE</h3>
+        </div>
+
+        <div class="list-group">
+            <p>Name: {{ username }}</p>
+            <p>Email: {{ email }}</p>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in items %}
+                <tr>
+                    <td>{{item.product.product_code}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>${{item.product.price|floatformat:2}}</td>
+                    <td>${{item.get_totalPrice|floatformat:2}}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+            
+                <h3 style="font-weight: bold;">Total: ${{order.get_cartTotalPrice|floatformat:2}}</h3>
+            
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

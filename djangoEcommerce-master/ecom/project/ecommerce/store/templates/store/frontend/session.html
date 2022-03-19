@@ -1,0 +1,41 @@
+{% extends 'store/frontend/main.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <p>Total: {{ cart|length }}</p>
+    <p>Total: {{ cart }}</p>
+    <a href="{% url 'delete_session' %}">Delete session</a>
+</div>
+
+
+<div class="row">
+
+    {% for product in products %}
+    <div class="col-lg-4 col-sm-6 col-md-6">
+
+        <img class="thumbnail" src="{{ product.imageURL }}" style="width: 100%">
+        <div class="box-element product">
+            <h6>
+                <strong>{{ product.name }}</strong>
+                {% if product.stock < 1 %}
+                <p style="float:right; color:red">Out of Stock</p>
+                {% else %}
+                <p style="float:right; color:green">Available</p>
+                {% endif %}
+            </h6>
+            <hr>
+
+            <form action="{% url 'session' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value={{ product.id }} name="p_id">
+                <button class="btn btn-outline-dark btn-sm add-btn">Add to Cart</button>
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+<style>
+    .flex-container {
+        display: flex;
+        flex-flow: row wrap;
+    }
+</style>
+
+
+<div class="flex-container" style="margin-top:20px;">
+
+
+    <div class="dropdown" style="display:flex; flex-grow: 1">
+        <button class="btn btn-secondary dropdown-toggle form-control" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            sort by
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'sortPriceHighest' %}">Price: Highest First</a>
+            <a class="dropdown-item" href="{% url 'sortPriceLowest' %}">Price: Lowest First</a>
+            <a class="dropdown-item" href="{% url 'sortProductLatest' %}">Product: Latests First</a>
+        </div>
+    </div>
+
+    <div class="dropdown" style="display:flex; flex-grow: 1">
+        <button class="btn btn-warning dropdown-toggle form-control" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Category
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for cat in category %}
+            <a class="dropdown-item" href="{% url 'sortCategory' cat.id %}">{{ cat.c_name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="flex-grow: 3">
+        <form action="{% url 'search_item' %}" method="GET" style="display: flex;">
+            {% csrf_token %}
+            <input type="text" class="form-control" id="search_field" name="search" placeholder="search...">
+            <button class="btn btn-primary" id="search_button" type="submit">search</button>
+        </form>
+    </div>
+
+</div>

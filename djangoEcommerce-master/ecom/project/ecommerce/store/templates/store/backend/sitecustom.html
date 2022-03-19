@@ -1,0 +1,26 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+
+<p class="alert alert-dark">Site-Customization Form\&nbsp;<span class="badge badge-light"><a href="{% url 'slider_list' %}" style="font-size: 15px;">Change Banner</a></span></p>
+<div class="">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- for ckeditor -->
+        {{ form.media }}
+
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-success" style="display: block; margin: auto; width:400px;">submit</button>
+    </form>
+</div>
+
+
+
+
+
+{% endblock  %}

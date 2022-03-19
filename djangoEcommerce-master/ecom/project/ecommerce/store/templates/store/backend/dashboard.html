@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<title>Amart ecommerce</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: crimson; color: white">
+		<a class="navbar-brand" href="{% url 'dashboard' %}">
+			<img class="rounded" src="{% static 'images/amartlogo.png' %}" style="width: 100px; height: 40px;">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'dashboard' %}" style="color:white; font-weight: bold;">Welcome,
+						{{request.user|upper}}</a>
+				</li>
+			</ul>
+			<div class="form-inline my-2 my-lg-0">
+				<a href="{% url 'logout' %}" class="btn btn-dark btn-sm" style="border-radius: 12px;">Logout</a>
+			</div>
+		</div>
+	</nav>
+
+
+
+	<div class="container-fluid" style="margin: 50px 0px;">
+
+
+
+		<div class="row" style="padding: 20px; border-radius: 3px">
+
+			<div class="col-xs-12 col-sm-12 col-md-3" style="padding: 30px; border-radius: 15px;">
+				<ul class="list-group" style="text-align: center;">
+					<li class="list-group-item"><b><u>{{ request.user.groups.all.0|title }} Dashboard</u></b></li>
+
+					{% if request.user.groups.all.0.name == "customer" %}
+					<a href="{% url 'store' %}">
+						<li class="list-group-item">Continue shopping</li>
+					</a>
+					<a href="{% url 'order_list' %}">
+						<li class="list-group-item">Order History</li>
+					</a>
+					{% endif %}
+
+
+
+
+
+					{% if request.user.groups.all.0.name == "manager" %}
+					<a href="{% url 'store' %}">
+						<li class="list-group-item">View Site</li>
+					</a>
+
+					<a href="{% url 'site-custom' %}">
+						<li class="list-group-item">Site Customization</li>
+					</a>
+
+
+					<a href="{% url 'products' %}">
+						<li class="list-group-item">Products</li>
+					</a>
+
+					<a href="{% url 'deliveryList' %}">
+						<li class="list-group-item">Delivery Status</li>
+					</a>
+
+					<a href="{% url 'customer_msg' %}">
+						<li class="list-group-item">Customer Messages({{msg}})
+						</li>
+					</a>
+
+					<a href="{% url 'report' %}">
+						<li class="list-group-item">Report Generator
+						</li>
+					</a>
+
+
+					{% endif %}
+
+					{% if request.user.groups.all.0.name == "store assistant" %}
+					<a href="{% url 'store' %}">
+						<li class="list-group-item">View Site</li>
+					</a>
+
+					<a href="{% url 'products' %}">
+						<li class="list-group-item">Products List</li>
+					</a>
+					<a href="{% url 'contact_manager' %}">
+						<li class="list-group-item">Contact Manager</li>
+					</a>
+					<a href="{% url 'custom-order' %}">
+						<li class="list-group-item">Custom Order</li>
+					</a>
+					{% endif %}
+
+
+					<a href="{% url 'update_profile' request.user.id %}">
+						<li class="list-group-item">Update Profile</li>
+					</a>
+					<a href="{% url 'password_change' request.user.id %}">
+						<li class="list-group-item">Password change</li>
+					</a>
+
+				</ul>
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-md-9" style="padding: 20px; border-radius: 15px; border: 2px solid grey;">
+
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
+					style="margin:auto; text-align: center; margin-top: 5px;">
+					{% if messages %}
+					{% for msg in messages %}
+					<div class="alert alert-{{msg.tags}}">
+						{{msg}}
+					</div>
+					{% endfor %}
+					{% endif %}
+				</div>
+
+				{% block content %}{% endblock content %}
+
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+</body>
+
+</html>

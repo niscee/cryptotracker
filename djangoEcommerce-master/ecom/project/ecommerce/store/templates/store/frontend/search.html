@@ -1,0 +1,33 @@
+{% extends 'store/frontend/main.html' %}
+{% load static %}
+{% block content %}
+
+    <p class="alert alert-danger" style="text-align: center; font-size: 25px; font-weight: bold;">Search Results</p>
+	<div class="row">
+		
+
+		{% for product in products %}
+		<div class="col-lg-3 col-sm-6 col-md-6">
+			
+			<img class="thumbnail" src="{{ product.imageURL }}" style="width: 100%">  
+			<div class="box-element product">
+				<h6>
+					<strong>{{ product.name }}</strong>
+					{% if product.stock < 1 %}
+				   	    <p style="float:right; color:red">Out of Stock</p>
+					{% else %}
+						<p style="float:right; color:green">Available({{ product.stock }})</p>
+					{% endif %}	
+				</h6>
+				<hr>
+				{% if product.stock > 0 %}
+				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-dark btn-sm add-btn update-cart">Add to Cart</button>
+				{% endif %}
+				<a class="btn btn-outline-primary btn-sm" href="{% url 'item_detail' product.id %}">Details</a>
+				<h6 style="float:right">${{ product.price|floatformat:2 }}</h6>
+			</div>
+		</div>
+		{% endfor %}
+		
+	</div>
+{% endblock content %}

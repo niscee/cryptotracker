@@ -1,0 +1,197 @@
+{% extends 'store/frontend/main2.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="payment-selection">
+
+    <p class="alert alert-danger" id="msg"
+        style="text-align: center; font-size: 25px; font-weight: bold; display: block">Choose Payment</p>
+
+    <div id="confirm" style="width: 600px; margin: auto; display: none">
+        <h4 style="text-align: center; font-weight: bold;"><u>Click confirm button to finish the
+                process.</u></h4>
+        <img src="{% static 'images/paymentconfirmed.png' %}" style="width:600px; margin: auto;padding: 20px;">
+
+        <form action="{% url 'paymentConfirmation' order.id %}" method="POST">
+            {% csrf_token %}
+            <button style="display: block; width: 550px; margin: auto" class="btn btn-block btn-success"
+                type="submit">CONFIRMED</button>
+        </form>
+
+    </div>
+
+    <div class="row" id="payment-options">
+
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="box-element product">
+
+                <div id="paypal-button" style="width: 400px; margin: auto">
+                    <img src="{% static 'images/paypal-image.png' %}"
+                        style="width:400px; height:320px; margin: auto;padding: 20px;">
+                    <p style="text-align: center; font-weight: bold; color: red">Total: ${{total}} (including shipping
+                        charge).</p>
+                </div>
+
+
+
+                <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+                <script>
+
+
+                    total = `{{total}}`
+
+                    paypal.Button.render({
+                        // Configure environment
+                        env: 'sandbox',
+                        client: {
+                            sandbox: 'AYwDuOM5E_MEoVnWVOauwtaJCkPz1V-19jr8n72b_FBKtb6v4MRXSsjW6b82MrmENayaEvN341Y90A2x',
+                            production: 'demo_production_client_id'
+                        },
+                        // Customize button (optional)
+                        locale: 'en_US',
+                        style: {
+                            size: 'large',
+                            color: 'gold',
+                            shape: 'pill',
+
+                        },
+
+                        // Enable Pay Now checkout flow (optional)
+                        commit: true,
+
+                        // Set up a payment
+                        payment: function (data, actions) {
+                            return actions.payment.create({
+                                transactions: [{
+                                    amount: {
+                                        total: total,
+                                        currency: 'USD'
+                                    }
+                                }]
+                            });
+                        },
+                        // Execute the payment
+                        onAuthorize: function (data, actions) {
+                            return actions.payment.execute().then(function () {
+
+                                window.alert('success');
+
+                                btn1 = document.getElementById('payment-options');
+                                btn1.style.display = "none";
+
+                                btn = document.getElementById('confirm');
+                                btn.style.display = "block";
+
+                                btn = document.getElementById('msg');
+                                btn.style.display = "none";
+                            });
+                        }
+                    }, '#paypal-button');
+
+                </script>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6 col-lg-6 col-sm-12">
+            <img src="{% static 'images/debitcard.png' %}" style="width:100%;">
+            <div class="box-element product">
+                <form onsubmit="check()" name="myform">
+
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Owner</label>
+                            <input type="text" class="form-control" required name="owner" placeholder="Enter name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">CVV</label>
+                            <input type="number" class="form-control" required name="cvv"
+                                placeholder="Enter 3 digit number">
+                        </div>
+                    </div>
+
+                    <input type="hidden" value={{total}}>
+                    <input type="hidden" value={{order.id}}>
+
+                    <div class="form-group">
+                        <label for="inputAddress">Card Number</label>
+                        <input type="number" class="form-control" placeholder="Enter 16 digit number" name="card_num"
+                            required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputState">Month</label>
+                            <select name="month" class="form-control" required>
+                                <option>...</option>
+                                <option>Jan</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Apr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Aug</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dec</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label name="year">Year</label>
+                            <input type="text" class="form-control" name="date" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- form validation -->
+<script>
+
+    const check = (e) => {
+
+        event.preventDefault()
+        const cvv = document.forms["myform"]["cvv"].value;
+        const cardnum = document.forms["myform"]["card_num"].value;
+
+        if (cvv.length != 3) {
+            alert('cvv should be exactly 3 digits')
+        }
+
+        else if (cardnum.length != 16) {
+            alert("card number should be of 16 digits")
+        }
+
+        else {
+
+            btn1 = document.getElementById('payment-options');
+            btn1.style.display = "none";
+
+            btn = document.getElementById('confirm');
+            btn.style.display = "block";
+
+            btn = document.getElementById('msg');
+            btn.style.display = "none";
+        }
+
+    }
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<p class="alert alert-dark" style="text-align: center;font-weight: bold;">Custom Order Messages</p>
+
+<div style="margin: 0 auto; width:600px;">
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if orders %}
+            {% for msg in orders %}
+            <tr>
+                {% if msg.sent %}
+                <td><a href="{% url 'custom_order_view' msg.id %}">{{msg.user}}</a>&nbsp;<span class="badge badge-danger">sent to admin</span></td>
+                <td>
+                    <form action="{% url 'custom_order_delete' msg.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>    
+                </td>
+                {% else %}
+                <td><a href="{% url 'custom_order_view' msg.id %}">{{msg.user}}</a></td>
+                <td><a href="{% url 'custom_order_email' msg.id %}"><button class="btn btn-success btn-sm">Email Admin</button></a></td>
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock  %}

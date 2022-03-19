@@ -1,0 +1,74 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="alert alert-primary" style="text-align: center;">
+    Order History
+</div>
+
+<div class="table-responsive">
+<table class="table">
+
+    {% if order.pdf.url %}
+    <a href="{{order.pdf.url}}" target="_blank"><h6 style="font-weight: bold;">DOWNLOAD INVOICE:&nbsp;&nbsp;<i class="fa fa-file-pdf-o" style="font-size:24px; color:red;"></i></h6></a>
+    {% else %}
+    
+    {% endif %}
+
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Order Id</th>
+            <th>Product Code</th>
+            <th>Product</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% if items %}
+        {% for item in items %}
+        <tr>
+            <td><img src="{{ item.product.imageURL }}" alt="product_image" class="img-thumbnail"
+                style="height:80px; width:120px;"></td> 
+                
+            <td>{{ item.order.id }}</td>
+            <td>{{ item.product.product_code }}</td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.date_added|date:'Y-m-d' }}</td>
+            
+
+
+            {% for i in item.order.shippingaddress_set.all %}               
+            <td>{{i.delivery_status}}</td> 
+            {% endfor %}
+            
+            {% if item.order.pdf %}
+            <td style="text-align: center;"><a href="{{item.order.pdf.url}}" target="_blank"><i class="fa fa-file-pdf-o" 
+                style="font-size:24px; color:red;"></i></a></td>
+            {% else %}  
+            <td style="color:red">N/A</td>   
+            {% endif %}
+                
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endif %}
+
+    </tbody>
+</table>
+</div>
+
+{% endblock  %}

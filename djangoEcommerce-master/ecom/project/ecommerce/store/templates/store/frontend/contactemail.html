@@ -1,0 +1,81 @@
+{% extends 'store/frontend/main2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-lg-6 col-md-6">
+
+        <div class="" style="margin:auto; text-align: center;margin-top:5px;">
+            {% if error_messages %}
+            {% for msg in error_messages %}
+            <div class="alert alert-{{msg.tags}}">
+                {{msg}}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="">
+
+            {% for manager in managers %}
+            <p class="alert alert-warning" style="text-align: center; font-weight: bold;">Manager Contact List</p>
+            <div class="card" style="margin-top:2px;">
+                <div class="card-body">
+                    <p>Username: {{manager.username}}</p>
+                    <p class="card-text">Email: {{manager.email}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for store in stores %}
+            <p class="alert alert-warning" style="text-align: center; font-weight: bold;margin-top: 20px;">Store
+                Assistant Contact List</p>
+            <div class="card" style="margin-top:2px;">
+                <div class="card-body">
+                    <p class="card-title">Username: {{store.username}}</p>
+                    <p class="card-text">Email: {{store.email}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+
+
+        <div class="" style="margin:auto; text-align: center;margin-top:5px;">
+            {% if error_messages %}
+            {% for msg in error_messages %}
+            <div class="alert alert-{{msg.tags}}">
+                {{msg}}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="">
+
+            {% if user.is_authenticated %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button class="btn btn-primary btn-block" type="submit">Send</button>
+            </form>
+            {% else %}
+            <p class="alert alert-danger">You need to login!!</p>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<div style="margin: auto; max-width:500px;">
+
+    <p class="alert alert-dark" style="text-align: center;">Customer Message</p>
+
+    <table class="table" style="width:100%">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            {% for m in msg1 %}
+            <tr>
+
+
+                <td>{{ m.user }}</td>
+                <td>{{ m.messages }}</td>
+
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+
+</div>
+
+</div>
+
+
+{% endblock  %}

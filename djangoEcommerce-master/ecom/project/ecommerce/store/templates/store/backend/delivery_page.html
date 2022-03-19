@@ -1,0 +1,43 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<p class="alert alert-dark" style="text-align: center;">Delivery Status</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Address</th>
+                <th>Order_Id</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Change-Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for product in products %}
+            <tr>
+                <td>{{product.user}}</td>
+                <td>{{product.address}}</td>
+                <td>{{product.id}}</td>
+                <td>{{product.city}}</td>
+                {% if product.delivery_status == "Delivered" %}
+                <td style="color:green;">{{product.delivery_status}}</td>
+                {% else %}
+                <td style="color:red;">{{product.delivery_status}}</td>
+                {% endif %}
+                <td><a href="{% url 'change_delivery_status' product.id %}"><button
+                            class="btn btn-primary">CHANGE</button></a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock  %}

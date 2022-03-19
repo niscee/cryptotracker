@@ -1,0 +1,61 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<style>
+    div.polaroid {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    }
+
+    img {
+        height: 300px;
+    }
+    
+    div.container {
+      padding: 10px;
+    }
+</style>
+
+<p class="alert alert-dark" style="font-weight:bold; text-align: center;"><u>Home Banner</u></p>
+<a href="{% url 'slider_update' slider.id %}" class="btn btn-outline-success">Update Banner</a><br> 
+<div class="" style="margin-top: 20px;">
+    
+    <div class="row">
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="polaroid">
+                <img src="{{ slider.image1.url }}" alt="Norway" style="width:100%">
+                <div class="container">
+                  <p>Image-1</p>
+                </div>
+              </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="polaroid">
+                <img src="{{ slider.image2.url }}" alt="Norway" style="width:100%">
+                <div class="container">
+                  <p>Image-2</p>
+                </div>
+              </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="polaroid">
+                <img src="{{ slider.image3.url }}" alt="Norway" style="width:100%">
+                <div class="container">
+                  <p>Image-3</p>
+                </div>
+              </div>
+        </div>
+
+    </div>
+
+     
+</div>
+   
+
+{% endblock  %}

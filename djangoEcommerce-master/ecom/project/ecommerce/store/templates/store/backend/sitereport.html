@@ -1,0 +1,38 @@
+{% extends 'store/backend/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    div.polaroid {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    }
+
+    img {
+        height: 300px;
+    }
+    
+    div.container {
+      padding: 10px;
+    }
+</style>
+
+<div class="col-md-8 col-sm-8 col-lg-8" style="margin:10px auto;">
+
+    <p class="alert alert-dark" style="text-align: center;">Generate Monthly Report</p>
+
+    <div class="col-md-6 col-md-6 col-lg-12" style="margin: auto; width:300px; margin-top: 100px;">
+        
+        <p style="text-align: center; font-weight: bold;">Click Here To Generate Report</p>
+        <div class="polaroid">
+            <a href="{% url 'report_generate' %}" target="_blank" class="btn btn-success" style="width: 300px; margin: auto">Generate</a>
+          </div>
+            
+    </div>
+    
+
+</div>
+   
+
+{% endblock  %}

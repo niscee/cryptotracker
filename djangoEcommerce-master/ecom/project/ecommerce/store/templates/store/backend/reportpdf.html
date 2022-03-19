@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Report</title>
+    {% load static %}
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .list-group {
+            display: block;
+            width: 100%;
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .list-group p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <img class="rounded" src="{% static 'images/amartlogo.png' %}">
+            <h1 style="text-align: center;">Amart Monthly Report</h1>
+        </div>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Order ID</th>
+                <th>Category</th>
+                <th>Product ID</th>
+                <th>Qty</th>
+                <th>Date</th>
+                <th>Unit Price</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in params %}
+                <tr>
+                    <td>{{item.user.username}}</td>
+                    <td>{{item.order.id}}</td>
+                    <td>{{item.product.category}}</td>
+                    <td>{{item.product.product_code}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.date_added|date:'Y-m-d'}}</td>
+                    <td>${{item.product.price|floatformat:2}}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+            
+                <h3 style="font-weight: bold;">Total: ${{total}}</h3>
+            
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

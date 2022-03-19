@@ -1,0 +1,16 @@
+{% extends 'store/frontend/main2.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-lg-12" style="margin: auto"> 
+        <div>
+            <h4 style="text-align: center;"><strong>ABOUT US</strong></h4>
+            <hr>
+            <p>{{site.about|safe}}</p>
+        </div>
+</div>
+
+{% endblock %}
+
+<!-- {{site.about|safe}} - ckeditor -->
